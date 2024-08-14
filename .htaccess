@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Redirige les requêtes vers index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ api/index.php?request=$1 [QSA,L]
+
+# Passe l'en-tête Authorization à PHP
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
